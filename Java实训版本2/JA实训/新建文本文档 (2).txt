@@ -1,0 +1,380 @@
+import java.util.*;
+public class Pm {
+      public static void main(String args[]){
+    	  List<student> stulist=new ArrayList<student>();
+    	  List<worker> worlist=new ArrayList<worker>();
+    	  Pm1 s=new Pm1(stulist, worlist);
+    	  s.select();
+      }  
+}
+
+class Pm1 {
+	
+	List<Stu> stulist=new ArrayList<Stu>();
+	List<Worker>worlist=new ArrayList<Worker>();
+	public Pm1(List<Stu> stu,List<Worker> wor) {
+		stulist=stu;
+		worlist=wor;
+		
+		
+		
+	}
+	
+	public  static void view(){
+		System.out.println("学校信息管理系统");
+		System.out.println("\t1.学生信息管理");
+		System.out.println("\t2.工人信息管理");
+		System.out.println("\t3.退出系统");
+	}
+	public static void stuview(){
+		System.out.println("1.添加学生信息");
+		System.out.println("2.列出学生全部信息");
+		System.out.println("3.查询学生信息");
+		System.out.println("4.删除学生信息");
+		System.out.println("5.修改学生信息");
+		System.out.println("6.返上一级菜单");
+		
+		
+	}
+	
+	public static void worview(){
+		System.out.println("1.添加职工信息");
+		System.out.println("2.列出职工全部信息");
+		System.out.println("3.查询职工信息");
+		System.out.println("4.删除职工信息");
+		System.out.println("5.修改职工信息");
+		System.out.println("6.返上一级菜单");
+	}
+	
+	public boolean check (String id){
+		Iterator<Stu> it= stulist.iterator();
+		while(it.hasNext()){
+			Stu stu=it.next();
+			if(id.equals(stu.getID())){
+				return true;
+			}
+		
+		}return false;
+	}
+	public  void stuselect(){
+		boolean T=true;
+		do{
+		Pm1.stuview();
+		Scanner a= new Scanner(System.in);
+		int se=a.nextInt();
+		switch(se){
+		case 1:{
+                String name,ID;
+                int score,age;
+                System.out.println("请输入ID");
+                ID=new Scanner(System.in).next();
+                while(this.check(ID)){
+                System.out.println("此ID已存在，请重新输入ID");
+                 ID=new Scanner(System.in).next();
+                }
+              System.out.println("请输入名字");
+             name=new Scanner(System.in).next();
+             System.out.println("请输入年龄");
+             age=new Scanner(System.in).nextInt();
+             System.out.println("请输入成绩");
+             score=new Scanner(System.in).nextInt();
+             stulist.add(new Stu(ID,name,age,score));
+             break;	
+		}
+		case 2:{
+			Iterator<Stu> it= stulist.iterator();
+			while(it.hasNext()){
+				Stu stu=it.next();
+				System.out.println(stu);
+			
+			}
+			break;
+		}
+		case 3:{
+			  String id;
+			  System.out.println("请输入想要查询学生的ID");
+              id=new Scanner(System.in).next();
+              Iterator<Stu> it= stulist.iterator();
+  			while(it.hasNext()){
+  				Stu stu=(Stu)it.next();
+  				if(stu.getID().equals(id)){
+  					System.out.println("已查到");
+  					System.out.println(stu);
+  					break;
+  				}
+  			
+  			} System.out.println("没有这位同学的信息");break;
+		}
+		case 4:{
+			boolean b=false;
+			System.out.println("输入要删除的学生的学号");
+			 String id;
+             id=new Scanner(System.in).next();
+             Iterator<Stu> it= stulist.iterator();
+         	while(it.hasNext()){
+         		
+         		Stu stu=(Stu)it.next();
+  				if(stu.getID().equals(id)){
+  					it.remove(); b=true; break;
+  				}
+  				
+  				} if(!b){System.out.println("没有找到");
+  				         }break;
+  			}
+		
+		case 5:{
+				System.out.println("输入要修改的学生的学号");
+				 String id;
+				  System.out.println("请输入想要查询学生的ID");
+	             id=new Scanner(System.in).next();
+	             Iterator<Stu> it= stulist.iterator();
+	         	while(it.hasNext()){
+	         		
+	         		Stu stu=(Stu)it.next();
+	  				if(stu.getID().equals(id)){
+	  					System.out.println("输入修改以后的ID");
+	  					stu.putID(new Scanner(System.in).next());
+	  					System.out.println("输入修改以后的名字");
+	  					stu.putName(new Scanner(System.in).next());
+	  					System.out.println("输入修改以后的年龄");
+	  					stu.putAge(new Scanner(System.in).nextInt());
+	  					System.out.println("输入修改以后的成绩");
+	  					stu.putScore(new Scanner(System.in).nextInt());
+	  				}
+	  				
+	  				}  System.out.println("没有找到");
+	  				break;
+				
+		}
+		case 6:{
+			T=false;
+			break;
+		       }
+		default :{
+			System.out.println("输入有误，请重新输入");break;
+			
+		}}}while(T);}
+	
+	public  void worselect(){
+		boolean T=true;
+		do{
+		Pm1.worview();
+		Scanner a= new Scanner(System.in);
+		int se=a.nextInt();
+		switch(se){
+		case 1:{
+                String name,ID,occupation;
+                int salary,age;
+                System.out.println("请输入ID");
+                ID=new Scanner(System.in).next();
+                while(check(ID)){
+                System.out.println("此ID已存在，请重新输入ID");
+              ID=new Scanner(System.in).next();
+                }
+              System.out.println("请输入名字");
+             name=new Scanner(System.in).next();
+             System.out.println("请输入年龄");
+             age=new Scanner(System.in).nextInt();
+             System.out.println("请输入薪水");
+             salary=new Scanner(System.in).nextInt();
+             System.out.println("请输入职位");
+             occupation=new Scanner(System.in).next();
+             worlist.add(new Worker(ID,name,age,salary,occupation));
+             break;	
+		}
+		case 2:{
+			Iterator<Worker> it= worlist.iterator();
+			while(it.hasNext()){
+				Worker wor=it.next();
+				System.out.println(wor);
+			
+			}
+			break;
+		}
+		case 3:{
+			  String id;
+			  System.out.println("请输入想要查询职工的ID");
+              id=new Scanner(System.in).next();
+              Iterator<Worker> it= worlist.iterator();
+  			while(it.hasNext()){
+  				Worker wor=(Worker)it.next();
+  				if(wor.getID().equals(id)){
+  					System.out.println("已查到");
+  					System.out.println(wor);
+  					break;
+  				}
+  			
+  			} System.out.println("没有这位职工的信息");break;
+		}
+		case 4:{
+			boolean b=false;
+			System.out.println("输入要删除的职工的工号");
+			 String id;
+             id=new Scanner(System.in).next();
+             Iterator<Worker> it= worlist.iterator();
+         	while(it.hasNext()){
+         		
+         		Worker wor=(Worker)it.next();
+  				if(wor.getID().equals(id)){
+  					it.remove(); b=true; break;
+  				}
+  				
+  				} if(!b){System.out.println("没有找到");
+  				         }break;
+  			}
+		
+		case 5:{
+				System.out.println("输入要修改的职工的工号");
+				 String id;
+				  System.out.println("请输入想要查询职工的ID");
+	             id=new Scanner(System.in).next();
+	             Iterator<Worker> it= worlist.iterator();
+	         	while(it.hasNext()){
+	         		
+	         		Worker wor=(Worker)it.next();
+	  				if(wor.getID().equals(id)){
+	  					System.out.println("输入修改以后的ID");
+	  					wor.putID(new Scanner(System.in).next());
+	  					System.out.println("输入修改以后的名字");
+	  					wor.putName(new Scanner(System.in).next());
+	  					System.out.println("输入修改以后的年龄");
+	  					wor.putAge(new Scanner(System.in).nextInt());
+	  					System.out.println("输入修改以后的薪水");
+	  					wor.putSalary(new Scanner(System.in).nextInt());
+	  					System.out.println("输入修改以后的职位");
+	  					wor.putOccupation(new Scanner(System.in).next());
+	  				}
+	  				
+	  				}  System.out.println("没有找到");
+	  				break;
+				
+		}
+		case 6:{
+			T=false;
+			break;
+		       }
+		default :{
+			System.out.println("输入有误，请重新输入");break;
+			
+		}}}while(T);}
+	
+	public  void  select(){
+		
+		
+		
+		do{
+			Pm1.view();
+		Scanner a=new Scanner(System.in);
+		int se=a.nextInt();
+		
+		switch(se){
+		case 1:
+		{
+			
+			this.stuselect();
+				break;
+			  
+		}
+		
+		case 2:{
+			this.worselect();
+			break;
+		}
+		case 3:{
+			System.exit(0);
+		
+			
+		}
+		default :{ 
+			System.out.println("输入有误，请重新输入");
+		  break;
+			
+		}}
+		}while(true);
+	}
+	public List<Worker> rtstu(){
+		return worlist; 
+	}
+}
+	
+
+
+
+	
+
+	
+	
+
+ abstract class Person{
+	private String ID;
+  private  String name;
+private 	int age;
+public Person(String ID,String name,int age){
+	this.name=name;
+	this.age=age;
+	this.ID=ID;
+
+}
+  public void putID(String ID){
+	  this.ID=ID;
+  }
+  public void putName(String name){
+	  this.name=name;
+  }
+	public void putAge(int age){
+		this.age=age;
+	}
+	public String getName(){
+		return name;
+	}
+	public String getID(){
+		return ID;
+	}
+	public int getAge(){
+		return age;
+	}
+	
+}
+ 
+ class Stu extends Person{
+	 int score;
+	 public Stu(String ID,String name,int age,int score){
+		 super(ID,name,age);
+		 this.score=score;
+	 }
+	 public void putScore(int score){
+		 this.score=score;
+	 }
+	 public int getScore(){
+		 return score;
+	 }
+	 public  String toString(){ 
+		 return "学号"+this.getID()+"姓名"+this.getName()+"年龄"+this.getAge() +"成绩"+score;
+	 }
+ }
+ 
+ class Worker extends Person{
+	 String occupation;
+	 int salary;
+	 public Worker(String ID,String name,int age,int salary,String occupation){
+		 super(ID,name,age);
+		 this.occupation=occupation;
+		 this.salary=salary;
+	 }
+	 public void putSalary(int salary){
+		 this.salary=salary;
+	 }
+	 public void putOccupation(String occupation){
+		 this.occupation=occupation;
+		 
+	 }
+	 public  String getOccupation(){
+		 return occupation;
+	 }
+	 public int getSalary(){
+		 return salary;
+	 }
+	 public  String toString(){ 
+		 return "工号"+this.getID()+"姓名"+this.getName()+"年龄"+this.getAge() +"薪水"+salary+"职位"+occupation;
+	 }
+ }

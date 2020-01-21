@@ -1,0 +1,345 @@
+
+import java.util.*;
+abstract class Person{
+	int id;
+	int age;
+	String name;
+	  public Person(String name,int age,int id) {
+		this.id=id;
+		this.age=age;
+		this.name=name;}
+	  public void setID(int id){
+		  this.id=id;
+	  }
+	  public void setName(String name){
+		  this.name=name;
+	  }
+	  public void setAge(int age){
+			this.age=age;
+		}
+	  public String getName(){
+			return name;
+		}
+	  public int getID(){
+			return id;
+		}
+	  public int getAge(){
+			return age;
+		}
+}
+class Student extends Person{
+	int grade;
+	public Student (String name,int age,int id,int grade) {
+		super(name,age,id);
+		this.grade=grade;
+		}
+	public void setGrade(int grade) {
+		this.grade=grade;
+	}
+	public int getGrade() {
+		return grade;
+	}
+	public String toString() {
+		return "姓名:"+ this.getName() + "\t年龄:" + this.getAge() + "\tID:" + this.getID() + "\t成绩" + this.getGrade();
+	}
+}
+
+class Worker extends Person{	
+	int salary;
+	String work;
+	public Worker (String name,int age,int id,int salary,String work) {
+		super(name,age,id);
+		this.salary=salary;
+		this.work=work;
+	}
+	public void setSalary(int salary) {
+		salary=salary;
+	}
+	public void setWork(String work) {
+		work=work;
+	}
+	public int getSalary() {
+		return salary;
+	}
+	public String getWork() {
+		return work;
+	}
+	public String toString() {
+		return "姓名:"+ this.getName() + "\t年龄:" + this.getAge() + "\tID:" + this.getID() + "\t工资" + this.getSalary()+ "\t职位" + this.getWork();
+	}
+}
+class Menu1{
+	public void showMenu1(){
+		System.out.printf("学校信息管理程序\n" +
+				"  1.学生信息管理系统\n" +
+				"  2.工人信息管理系统\n" +
+				"  3.退出系统\n");
+		System.out.println("请输入选择:");
+	}
+}
+class Menu2{
+	public void showMenu2(){
+		System.out.printf("学生信息管理\n" +
+				"  1.增加学生信息\n" +
+				"  2.列出全部学生信息\n" +
+				"  3.查询学生信息\n" +
+				"  4.删除学生信息\n" +
+				"  5.修改学生信息\n" +
+				"  6.返回上一级菜单\n"
+				);
+		System.out.println("请输入选择:");
+	}
+}
+class Menu3{
+	public void showMenu3(){
+		System.out.printf("工人信息管理\n" +
+				"  1.增加工人信息\n" +
+				"  2.列出全部工人信息\n" +
+				"  3.查询工人信息\n" +
+				"  4.删除工人信息\n" +
+				"  5.修改工人信息\n" +
+				"  6.返回上一级菜单\n"
+				);
+		System.out.println("请输入选择:");
+	}
+}
+
+public class Manage_array{
+	private static final int size = 10;//常量
+	static int stuNum = 0;
+	static int wNum = 0;
+	static Menu1 m1 = new Menu1();
+	static Menu2 m2 = new Menu2();
+	static Menu3 m3 = new Menu3();
+	static Person[] p = new Person[size];
+	static Worker[] w = new Worker[size];
+	 static Student[] s = new Student[size];
+	static Scanner sc = new Scanner(System.in);
+	public static void addStu() {
+	  
+		System.out.println("------增加学生------");
+		System.out.println("请输入相关信息：");
+		System.out.print("ID：");
+        int id = sc.nextInt();
+        System.out.println("姓名:");
+        String name = sc.next();
+        System.out.println("年龄:");
+        int age = sc.nextInt();
+        System.out.println("成绩:");
+        int grade = sc.nextInt();
+        s[stuNum]=new Student(name,age,id,grade);
+        stuNum++;
+        System.out.println("添加成功！");
+	}
+	
+	public static void showStu() {
+		for(int i=0;i<stuNum;i++) {
+			System.out.println(s[i]);
+		}
+	}
+	public static void findStu() {
+		int id=0;
+		System.out.println("-----查找信息-----");
+		System.out.println("输入学生ID");	
+		id = sc.nextInt();
+		for(int i = 0; i<10;i++) {
+			if(id==s[i].getID())
+				System.out.println(s[i]);
+			else
+				System.out.println("不存在此类学生");
+		}
+	}
+	public static void delStu() {
+		int id=0;
+		System.out.println("请输入要删除的学生ID");
+		id = sc.nextInt();
+		for(int i=0;i<10;i++) {
+			if(s[i].getID()==id) {
+				s[i]=s[stuNum-1];
+				s[stuNum-1]=null;
+				stuNum--;
+			}
+		}
+		
+	}
+	public static void updateStu() {
+		int id=0;
+		System.out.println("请输入要更改的信息");
+		id = sc.nextInt();
+		for(int i=0;i<stuNum; i++) {
+			if(s[i].getID()==id) {
+				System.out.print("输入学生年龄：");
+				int age = sc.nextInt();
+				s[i].setAge(age);
+				System.out.print("输入学生成绩：");
+				int grade = sc.nextInt();
+				s[i].setGrade(grade);
+				System.out.print("输入学生姓名：");
+				String name = sc.next();
+				s[i].setName(name);
+				System.out.print("输入学生成绩：");
+				int id1 = sc.nextInt();
+				s[i].setID(id1);
+			}
+		}
+	}
+	public static void addWorker() {
+		  Worker[] p = new Worker[size];
+	    System.out.println("------增加员工------");
+        System.out.println("请输入相关信息：");
+        System.out.print("ID：");
+        int id = sc.nextInt();
+        System.out.print("姓名:");
+        String name = sc.next();
+        System.out.println("年龄:");
+        int age = sc.nextInt();
+        System.out.print("职务:");
+        String work = sc.next();
+        System.out.print("基本工资:");
+        int salary =sc.nextInt();
+        p[wNum]=new Worker(name,age,id,salary,work);
+        wNum++;
+        System.out.println("添加成功！");
+	}
+	
+	public static void showWorker() {
+		for(int j=0;j<stuNum;j++) {
+			System.out.println(p[j]);
+		}
+	}
+	public static void findWorker() {
+		int id=0;
+		System.out.println("-----查找信息-----");
+		System.out.println("输入员工ID");	
+		id = sc.nextInt();
+		for(int j = 0; j<10;j++) {
+			if(id==p[j].getID())
+			System.out.println(p[j]);
+			else
+				System.out.println("不存在此类员工");
+		}
+	}
+	public static void delWorker() {
+		int id=0;
+		System.out.println("请输入要删除的员工ID");
+		id = sc.nextInt();
+		for(int j=0;j<10;j++) {
+			if(s[j].getID()==id) {
+				s[j]=s[stuNum-1];
+				s[stuNum-1]=null;
+				stuNum--;
+			}
+	}}
+	public static void updateWorker() {
+		int id=0;
+		System.out.println("请输入要更改的信息");
+		id = sc.nextInt();
+		for(int j=0;j<stuNum; j++) {
+			if(p[j].getID()==id) {
+				System.out.print("输入员工年龄：");
+				int age = sc.nextInt();
+				System.out.print("输入员工工资：");
+				int salary = sc.nextInt();
+				System.out.print("输入员工工作：");
+				String work = sc.next();
+				p[j].setAge(age);
+				((Worker) p[j]).setSalary(salary);
+				((Worker) p[j]).setWork(work);
+			}
+		}
+	}
+	public void select() {
+		do {
+			m1.showMenu1();
+			Scanner choice = new Scanner(System.in);
+			int ch = choice.nextInt();
+			switch(ch) {
+				case 1:
+					stuch();
+					break;
+				case 2:
+					worch();
+					break;
+				case 3:
+					System.exit(0);
+				default:
+					System.out.println("输入有误，请重新输入！");
+					break;
+			}
+		}while(true);
+		}
+	
+	
+	public void stuch() {
+		boolean IF = true;
+		do {
+			m2.showMenu2();
+			Scanner choice = new Scanner(System.in);
+			int ch = choice.nextInt();
+			switch(ch) {
+				case 1:
+					addStu();
+					break;
+				case 2:
+					showStu();
+					break;
+				case 3:
+					findStu();
+					break;
+				case 4:
+					delStu();
+					break;
+				case 5:
+					updateStu();
+					break;
+				case 6:
+					IF = false;
+					break;
+				default:
+					System.out.println("输入有误，请重新输入！");
+					break;
+			}
+		}while(IF);
+		}
+	
+	
+	public void worch() {
+		boolean IF = true;
+		do {
+			m3.showMenu3();
+			Scanner choice = new Scanner(System.in);
+			int ch = choice.nextInt();
+			switch(ch) {
+				case 1:
+					addWorker();
+					break;
+				case 2:
+					showWorker();
+					break;
+				case 3:
+					findWorker();
+					break;
+				case 4:
+					delWorker();
+					break;
+				case 5:
+					updateWorker();
+					break;
+				case 6:
+					IF = false;
+					break;
+				default:
+					System.out.println("输入有误，请重新输入！");
+					break;
+			}
+		}while(IF);
+		}
+	
+	
+	public static void main(String arg[]){
+		Manage_array ma = new Manage_array();
+		ma.select();
+	}
+	
+}
+	

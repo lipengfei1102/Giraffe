@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<SystemInfo>
+  <Class name="News" desc="文章栏目">
+    <Item name="NewsInfo" desc="新闻资讯">1</Item>
+    <Item name="MediaCoverage" desc="媒体报道">2</Item>
+    <Item name="Story" desc="爱心故事">3</Item>
+  </Class>
+</SystemInfo>
